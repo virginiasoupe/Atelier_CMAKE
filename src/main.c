@@ -8,31 +8,42 @@ int main(int argc, char *argv[]) {
         char* op = argv[1];
         double r = 0;
 
-        if (strcmp(op, "add") == 0 && argc == 4) {
-            r = _add(atof(argv[2]), atof(argv[3]));
-            printf("%lf\n", r);
+        // Cas où l'opération est "add", "sub", "mul", ou "div" (nécessite 3 arguments)
+        if (argc == 4) {
+            double a = atof(argv[2]);
+            double b = atof(argv[3]);
+
+            if (strcmp(op, "add") == 0) {
+                r = _add(a, b);
+                printf("%lf\n", r);
+            } else if (strcmp(op, "sub") == 0) {
+                r = _sub(a, b);
+                printf("%lf\n", r);
+            } else if (strcmp(op, "mul") == 0) {
+                r = _mul(a, b);
+                printf("%lf\n", r);
+            } else if (strcmp(op, "div") == 0) {
+                if (b != 0) {
+                    r = _div(a, b);
+                    printf("%lf\n", r);
+                } else {
+                    printf("Erreur : Division par zéro\n");
+                }
+            } else {
+                printf("Erreur : Opération inconnue\n");
+            }
         }
-        else if (strcmp(op, "sub") == 0 && argc == 4) {
-            r = _sub(atof(argv[2]), atof(argv[3]));
+        // Cas où l'opération est "car" (nécessite 2 arguments)
+        else if (argc == 3 && strcmp(op, "car") == 0) {
+            double a = atof(argv[2]);
+            r = _car(a);
             printf("%lf\n", r);
-        }
-        else if (strcmp(op, "mul") == 0 && argc == 4) {
-            r = _mul(atof(argv[2]), atof(argv[3]));
-            printf("%lf\n", r);
-        }
-        else if (strcmp(op, "div") == 0 && argc == 4) {
-            r = _div(atof(argv[2]), atof(argv[3]));
-            printf("%lf\n", r);
-        }
-        else if (strcmp(op, "car") == 0 && argc == 3) {
-            r = _car(atof(argv[2]));
-            printf("%lf\n", r);
-        }
-        else {
-            printf("Erreur de paramètres\n");
+        } else {
+            printf("Erreur : Opération ou nombre d'arguments incorrect\n");
         }
     } else {
-        printf("Erreur de paramètres\n");
+        printf("Erreur : Nombre d'arguments incorrect\n");
     }
     return 0;
 }
+
